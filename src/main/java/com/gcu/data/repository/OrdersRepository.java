@@ -13,6 +13,6 @@ public interface OrdersRepository extends CrudRepository<OrderEntity, Integer>
 {
 	// Example of truly overriding a method from the CrudRepository and using our own customized SQL
 	@Override
-	@Query(value = "SELECT * FROM cst339.order")
+	@Query(value = "SELECT * FROM `order`")
 	public List<OrderEntity> findAll();
 }

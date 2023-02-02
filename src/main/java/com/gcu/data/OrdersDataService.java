@@ -23,7 +23,7 @@ public class OrdersDataService implements DataAccessInterface<OrderEntity>
 	
 	
 	// Non-default constructor
-	public OrdersDataService(/* OrdersRepository ordersRepository, */ DataSource dataSource)
+	public OrdersDataService(OrdersRepository ordersRepository, DataSource dataSource)
 	{
 		this.ordersRepository = ordersRepository;
 		this.dataSource = dataSource;
@@ -71,7 +71,7 @@ public class OrdersDataService implements DataAccessInterface<OrderEntity>
 	// CRUD: create an entity
 	public boolean create(OrderEntity order)
 	{
-		String sql = "INSERT INTO cst339.order(order_no, product_name, price, quantity) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO `order`(order_no, product_name, price, quantity) VALUES(?, ?, ?, ?)";
 		try
 		{
 			jdbcTemplateObject.update(sql, 
@@ -97,7 +97,7 @@ public class OrdersDataService implements DataAccessInterface<OrderEntity>
 	// CRUD: delete an entity
 	public boolean delete(OrderEntity order)
 	{
-		String sql = "DELETE FROM cst339.order WHERE id=?";
+		String sql = "DELETE FROM `order` WHERE id=?";
 		try
 		{
 			jdbcTemplateObject.update(sql, 
