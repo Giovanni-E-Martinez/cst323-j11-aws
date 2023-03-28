@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="UTF=8">
-	<title>CST-339 Spring Boot Activity App</title>
+	<title>CST-323 Spring Boot Heroku App</title>
 </head>
 
 <body>
@@ -20,10 +20,10 @@
 			</thead>
 			<tbody>
 				<tr th:if="${orders.empty}">
-					<td style="text-align: center" colspan="4">No Orders Available</td>
+					<td style="text-align: center; background-color: red; color: white;" colspan="5">No Orders Available</td>
 				</tr>
 				<tr>
-					<form th:action="@{/orders/create}" th:object="${orderModel}" th:method="post">
+					<form th:action="@{/create}" th:object="${orderModel}" th:method="post">
 						<td style="text-align: center; background-color: lightgrey; font-weight: bold;">New Order:</td>
 						<td style="text-align: center; background-color: lightgrey">
 							<input type="text" th:field="*{productName}"/>
@@ -53,7 +53,7 @@
 						<h5 th:text="${order.quantity}">1</h5>
 					</td>
 					<td style="text-align: center;">
-						<form th:action="@{/orders/delete/{id}(id=${order.id})}" th:object="${order}" th:method="delete">
+						<form th:action="@{/delete/{id}(id=${order.id})}" th:object="${order}" th:method="delete">
 							<button name="deleteOrder" type="submit">Delete</button>
 						</form>
 					</td>

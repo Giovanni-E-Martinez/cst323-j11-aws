@@ -12,7 +12,7 @@ import com.gcu.business.OrdersBusinessService;
 import com.gcu.model.OrderModel;
 
 @Controller
-@RequestMapping("/orders")
+@RequestMapping("/")
 
 public class LoginController 
 {	
@@ -42,7 +42,7 @@ public class LoginController
 		OrderModel order = service.findById(id);
 		service.delete(order);
 		
-		return "redirect:/orders/";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/create")
@@ -50,6 +50,6 @@ public class LoginController
 	{
 		service.create(orderModel.getProductName(), orderModel.getPrice(), orderModel.getQuantity());
 		
-		return "redirect:/orders/";
+		return "redirect:/";
 	}
 }
