@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gcu.data.OrdersDataService;
 import com.gcu.data.entity.OrderEntity;
@@ -18,78 +20,86 @@ public class OrdersBusinessService implements OrdersBusinessServiceInterface
 {
 	@Autowired
 	private OrdersDataService service;
-	
+	private Logger logger = LoggerFactory.getLogger(OrdersBusinessService.class);
+
 	@Override
-	public void init() 
+	public void init()
 	{
 		System.out.println("In OrdersBusinessService.init()");
 	}
-	
+
 	@Override
-	public void destroy() 
+	public void destroy()
 	{
 		System.out.println("In OrdersBusinessService.destroy()");
 	}
 
 	@Override
-	public void test() 
+	public void test()
 	{
 		System.out.println("Hello from the OrdersBusinessService");
 	}
-	
+
 	@Override
 	public List<OrderModel> getOrders()
 	{
-		
+		logger.info("Entering OrdersBusinessService.getOrders()");
 //		List<OrderModel> orders = new ArrayList<OrderModel>(); orders.add(new
 //		OrderModel(0L, "0000000001", "Product 1", 1.00f, 1)); orders.add(new
 //		OrderModel(1L, "0000000002", "Product 2", 1.00f, 1)); orders.add(new
 //		OrderModel(2L, "0000000003", "Product 3", 1.00f, 1)); orders.add(new
 //		OrderModel(3L, "0000000004", "Product 4", 1.00f, 1)); orders.add(new
 //		OrderModel(4L, "0000000005", "Product 5", 1.00f, 1));
-		
-		
+
+
 		List<OrderEntity> ordersEntity = service.findAll();
-		
+
 		List<OrderModel> ordersDomain = new ArrayList<OrderModel>();
-		
+
 		for(OrderEntity entity : ordersEntity)
 		{
 			ordersDomain.add(new OrderModel(entity.getId(), entity.getOrderNo(), entity.getProductName(), entity.getPrice(), entity.getQuantity()));
 		}
-		
+		logger.info("Exiting OrdersBusinessService.getOrders()");
+
 		return ordersDomain;
 	}
-	
+
 	@Override
 	public OrderModel findById(int id)
 	{
+		logger.info("Entering OrdersBusinessService.findById()");
 		OrderEntity orderEntity = service.findById(id);
 		OrderModel orderModel = new OrderModel(
-												 orderEntity.getId(), orderEntity.getOrderNo(),
-												 orderEntity.getProductName(), orderEntity.getPrice(),
-												 orderEntity.getQuantity()
-												);
-		
+				orderEntity.getId(), orderEntity.getOrderNo(),
+				orderEntity.getProductName(), orderEntity.getPrice(),
+				orderEntity.getQuantity()
+		);
+		logger.info("Exiting OrdersBusinessService.findById()");
+
 		return orderModel;
 	}
-	
+
 	@Override
-	public boolean delete(OrderModel order) 
+	public boolean delete(OrderModel order)
 	{
+		logger.info("Entering OrdersBusinessService.delete()");
 		OrderEntity entity = new OrderEntity(order.getId(), order.getOrderNo(), order.getProductName(), order.getPrice(), order.getQuantity());
 		boolean result = service.delete(entity);
-		
+		logger.info("Exiting OrdersBusinessService.delete()");
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean create(String productName, float price, int quantity)
 	{
+		logger.info("Entering OrdersBusinessService.create()");
 		OrderModel orderModel = new OrderModel(productName, price, quantity);
 		OrderEntity orderEntity = new OrderEntity(-1L, "00000000", orderModel.getProductName(), orderModel.getPrice(), orderModel.getQuantity());
 		boolean result = service.create(orderEntity);
-		
+		logger.info("Exiting OrdersBusinessService.create()");
+
 		return true;
 	}
 }
