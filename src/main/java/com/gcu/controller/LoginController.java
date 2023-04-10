@@ -18,6 +18,8 @@ import com.gcu.model.OrderModel;
 
 public class LoginController
 {
+	// Deploy: 1
+	
 	// Dependency Injection
 	// we can use autowiring on properties, setters, and constructors.
 	// using autowired on a property eliminates the need for getters and setters.
